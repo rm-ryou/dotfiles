@@ -1,0 +1,88 @@
+###----- Basic Setting #### {{{
+
+
+# time command's format configuration
+TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
+
+# Hide EOL sign ('%')
+PROMPT_EOL_MARK=""
+
+# History configurations
+HISTFE="$ZDOTDIR/.zsh_history"
+HISTSIZE=1000
+SAVEHIST=2000
+setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFE size exceeds HISTSIZE
+setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
+setopt HIST_IGNORE_SPACE      # ignore commands that start with space
+setopt HIST_VERIFY            # show command with history expansion to user before running it
+
+# Other options
+# https://zsh.sourceforge.io/Doc/Release/Options.html#Options
+setopt AUTO_CD              # Change directory just by typing its name
+setopt CORRECT              # Auto correct mistake
+setopt IGNORE_EOF           # Do not exit on end-of-file
+setopt INTERACTIVE_COMMENTS # Allow comments in interactive shells
+setopt NONOMATCH            # Hide error msg if there is no match for the pattern
+setopt NOTIFY               # Report the status of background jobs immediately
+setopt NUMERIC_GLOB_SORT    # Sort filenames numerically when it makes sense
+# }}}
+###----- Prompt -----#### {{{
+# Enable command substitution in prompt
+setopt PROMPT_SUBST
+
+prompt_git() {
+  local s="";
+  local branchName="";
+
+  # Check if the current directory is in a Git repository.
+  git rev-parse --is-inside-work-tree &>/dev/null || return
+  branchName=$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+    git rev-parse --short HEAD 2> /dev/null || \
+    echo "(unknown)")
+
+  # Check for uncommitted change in the index.
+  if ! $(git diff --quiet --ignore-submodules --cached); then
+    s+="+"
+  fi
+  # Check for unstaged changes.
+  if ! $(git diff-files --quiet --ignore-submodules --); then
+    s+="!"
+  fi
+  # Check for untracked files.
+  if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+    s+="?"
+  fi
+  # Check for stashed files.
+  if ! $(git rev-parse --verify refs/stash &>/dev/null); then
+    s+="$"
+  fi
+
+  [ -n "${s}" ] && s=" [${s}]"
+
+  echo -E "${1}${branchName}${2}${s}"
+}
+
+# Set the terminal title and prompt.
+precmd() {
+  PROMPT=$'\n'                                                  # Add empty line
+  PROMPT+='%B%F{blue}%n%f%b'                                    # User name
+  PROMPT+='%F{white} at%f %B%F{cyan}%m%f%b'                     # Host
+  PROMPT+='%F{white} in%f %B%F{green}%~%f%b'                    # Working directory
+  PROMPT+=$(prompt_git '%F{white} on%f %F{magenta}' '%F{blue}') # Git repository details
+  PROMPT+=$'\n%F{white}$%f '
+}
+# }}}
+###----- ZLE -----#### {{{
+# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
+# }}}
+###----- Completion -----#### {{{
+# }}}
+###----- Aliases -----#### {{{
+if $(command -v bat &>/dev/null); then
+  alias cat="bat"
+fi
+
+if $(command -v eza &>/dev/null); then
+  alias ls="eza --color=always"
+fi
+# }}}
