@@ -19,9 +19,14 @@ links_to_home:
 .PHONY: links_to_config
 links_to_config:
 	@echo "Creating symlinks for config items..."
-	@echo $(CONFIG_SRCS)
 	@mkdir -p $(DIST_CONFIG_DIR)
 	@$(foreach srcs, $(CONFIG_SRCS), ln -sfn $(SRC_CONFIG_DIR)/$(srcs) $(DIST_CONFIG_DIR)/$(srcs);)
+
+.PHONY: clean
+clean:
+	@echo "Removing symlinks..."
+	@$(foreach file, $(HOME_SRCS), rm -f $(HOME)/.$(file);)
+	@$(foreach srcs, $(CONFIG_SRCS), rm -f $(DIST_CONFIG_DIR)/$(srcs);)
 
 .PHONY: help
 help:
