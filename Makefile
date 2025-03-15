@@ -13,7 +13,7 @@ install: links_to_home links_to_config
 
 .PHONY: links_to_home
 links_to_home:
-	@echo "Creating symlinks for $HOME files..."
+	@echo "Creating symlinks for HOME files..."
 	@$(foreach file, $(HOME_SRCS), ln -sfn $(CURDIR)/$(file) $(HOME)/.$(file);)
 
 .PHONY: links_to_config
