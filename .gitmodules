@@ -1,0 +1,4 @@
+[submodule "config/zsh/zsh-completions"]
+	path = config/zsh/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions.git
+	branch = master
