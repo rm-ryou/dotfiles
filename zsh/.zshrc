@@ -129,7 +129,7 @@ fi
 
 if $(command -v eza &>/dev/null); then
   alias ls="eza --color=always --icons=always"
-  export EZA_CONFIG_DIR="$HOME/.config/eza"
+  export EZA_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/eza"
 fi
 # }}}
 ###----- Tools Setting -----#### {{{
