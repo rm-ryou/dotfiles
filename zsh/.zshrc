@@ -1,5 +1,8 @@
 ###----- Basic Setting #### {{{
 
+# Set vi mode
+bindkey -v
+export KEYTIMEOUT=1
 
 # time command's format configuration
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
@@ -8,13 +11,21 @@ TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
 PROMPT_EOL_MARK=""
 
 # History configurations
-HISTFE="$ZDOTDIR/.zsh_history"
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 HISTSIZE=1000
 SAVEHIST=2000
 setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFE size exceeds HISTSIZE
 setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
 setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_VERIFY            # show command with history expansion to user before running it
+
+# auto/tab complete
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+# Include hidden files
+_comp_options+=(globdots)
 
 # Other options
 # https://zsh.sourceforge.io/Doc/Release/Options.html#Options
@@ -72,17 +83,58 @@ precmd() {
   PROMPT+=$'\n%F{white}$%f '
 }
 # }}}
-###----- ZLE -----#### {{{
-# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
-# }}}
 ###----- Completion -----#### {{{
 # }}}
+###----- ZLE -----#### {{{
+# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
+# vim key bind in tab complete menu
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Change cursor shape by vi mode
+function zle-keymap-select () {
+  case $KEYMAP in
+    vicmd)              # When normal mode
+      echo -ne '\e[2 q' # Smple block
+      ;;
+    viins|main)         # When insert mode
+      echo -ne '\e[6 q' # Simple beam
+      ;;
+  esac
+}
+zle -N zle-keymap-select
+zle-line-init() {
+  zle -K viins
+  echo -ne "\e[6 q"
+}
+zle -N zle-line-init
+# Set beam shape cursor for each new prompt
+preexec() { echo -ne '\e[6 q' ;}
+
+# Edit line in vim with ctrl-e
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+# }}}
 ###----- Aliases -----#### {{{
+
+# force zsh to show the complete history
+alias history="history 0"
+
 if $(command -v bat &>/dev/null); then
   alias cat="bat"
+  export BAT_THEME="tokyonight_night"
 fi
 
 if $(command -v eza &>/dev/null); then
-  alias ls="eza --color=always"
+  alias ls="eza --color=always --icons=always"
+  export EZA_CONFIG_DIR="$HOME/.config/eza"
 fi
+# }}}
+###----- Tools Setting -----#### {{{
+### FZF {{{
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+# }}}
 # }}}
