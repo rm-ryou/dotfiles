@@ -19,6 +19,9 @@ setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
 setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_VERIFY            # show command with history expansion to user before running it
 
+
+bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
+
 # auto/tab complete
 autoload -U compinit
 zstyle ':completion:*' menu select
