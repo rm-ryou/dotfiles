@@ -123,7 +123,7 @@ bindkey '^e' edit-command-line
 alias history="history 0"
 
 if $(command -v bat &>/dev/null); then
-  alias cat="bat"
+  alias cat="bat --color=always"
   export BAT_THEME="tokyonight_night"
 fi
 
@@ -136,5 +136,26 @@ fi
 ### FZF {{{
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
+
+show_preview="if [ -d {} ]; then eza --tree --color=always {}; else bat --color=always {}; fi"
+# NOTE It is not recommended to put ANSI and PREVIEW in FZF_DEFAULT_OPTS.
+# https://github.com/junegunn/fzf
+export FZF_DEFAULT_OPTS="
+  --ansi
+  --border=none
+  --highlight-line
+  --info=inline-right
+  --layout=reverse
+  --preview '$show_preview'
+  --color=fg:#c0caf5,bg:#16161e,hl:#2ac3de
+  --color=fg+:#c0caf5,bg+:#283457,hl+:#2ac3de
+  --color=gutter:#16161e,info:#545c7e
+  --color=border:#27a1b9,prompt:#2ac3de
+  --color=pointer:#ff007c,marker:#ff007c
+  --color=spinner:#ff007c,header:#ff9e64
+  --color=scrollbar:#27a1b9,separator:#ff9e64
+  --color=query:#c0caf5:regular"
+export FZF_CTRL_R_OPTS="--no-sort --exact"
+export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target"
 # }}}
 # }}}
