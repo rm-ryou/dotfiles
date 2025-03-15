@@ -1,5 +1,4 @@
 ###----- Basic Setting #### {{{
-
 # Set vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -18,14 +17,6 @@ setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFE size exceeds
 setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
 setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_VERIFY            # show command with history expansion to user before running it
-
-# auto/tab complete
-autoload -U compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-# Include hidden files
-_comp_options+=(globdots)
 
 # Other options
 # https://zsh.sourceforge.io/Doc/Release/Options.html#Options
@@ -84,6 +75,26 @@ precmd() {
 }
 # }}}
 ###----- Completion -----#### {{{
+# Ztyle pattern
+# :completion:<function>:<completer>:<command>:<argument>:<tag>
+
+# Allow to select in a menu
+zstyle ':completion:*' menu select
+# Include hidden files
+_comp_options+=(globdots)
+
+zstyle ':completion:*:*:git:*' script "$ZDOTDIR/completions/git-completion.bash"
+
+# Load more completions
+fpath=($ZDOTDIR/completions $fpath)
+fpath=($ZDOTDIR/zsh-completions/src $fpath)
+
+# Should be called before compinit
+zmodload zsh/complist
+
+# Enable auto/tab complete
+autoload -U compinit
+compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 # }}}
 ###----- ZLE -----#### {{{
 # https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zsh-Line-Editor
@@ -118,7 +129,6 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 # }}}
 ###----- Aliases -----#### {{{
-
 # force zsh to show the complete history
 alias history="history 0"
 
