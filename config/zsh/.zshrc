@@ -18,6 +18,12 @@ setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
 setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_VERIFY            # show command with history expansion to user before running it
 
+# Zsh syntax highlighting
+if [ -f "${ZDOTDIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  source "${ZDOTDIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+# [ -f ${zsh-syntax} ] && source "${zsh-syntax}"
+
 # Other options
 # https://zsh.sourceforge.io/Doc/Release/Options.html#Options
 setopt AUTO_CD              # Change directory just by typing its name
