@@ -42,5 +42,11 @@ if [ -d $HOME/.volta ]; then
   export PATH="$VOLTA_HOME/bin:$PATH"
 fi
 
+# Other tool settings
+# fzf
+if [ -d "$HOME/.fzf" ]; then
+  export PATH="$HOME/.fzf/bin:$PATH"
+fi
+
 umask 022
 
