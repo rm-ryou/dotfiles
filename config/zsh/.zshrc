@@ -19,8 +19,8 @@ setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_VERIFY            # show command with history expansion to user before running it
 
 # Zsh syntax highlighting
-if [ -f "${ZDOTDIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-  source "${ZDOTDIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ -f "${ZDOTDIR}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  source "${ZDOTDIR}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 # [ -f ${zsh-syntax} ] && source "${zsh-syntax}"
 
@@ -93,7 +93,7 @@ zstyle ':completion:*:*:git:*' script "$ZDOTDIR/completions/git-completion.bash"
 
 # Load more completions
 fpath=($ZDOTDIR/completions $fpath)
-fpath=($ZDOTDIR/zsh-completions/src $fpath)
+fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
 
 # Should be called before compinit
 zmodload zsh/complist
