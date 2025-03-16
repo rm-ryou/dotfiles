@@ -22,7 +22,11 @@ setopt HIST_VERIFY            # show command with history expansion to user befo
 if [ -f "${ZDOTDIR}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
   source "${ZDOTDIR}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
-# [ -f ${zsh-syntax} ] && source "${zsh-syntax}"
+
+# Zsh auto suggestions
+if [ -f "${ZDOTDIR}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+  source "${ZDOTDIR}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
 
 # Other options
 # https://zsh.sourceforge.io/Doc/Release/Options.html#Options
