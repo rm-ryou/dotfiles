@@ -1,7 +1,9 @@
 export PATH="$HOME/.local/bin:$PATH"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if $(command -v brew &>/dev/null); then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 man() {
   env \
