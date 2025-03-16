@@ -12,5 +12,35 @@ export EDITOR="vim"
 export PAGER="less"
 export LESS="-iR"
 
+# Language settings
+# goenv
+if [ -d $HOME/.goenv ]; then
+  export GOENV_ROOT="$HOME/.goenv"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  export GOENV_GOPATH_PREFIX="$HOME/.go"
+  export GOPATH="${HOME}/.go"
+  eval "$(goenv init - )"
+fi
+
+# pyenv
+if [ -d $HOME/.pyenv ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init - zsh)"
+fi
+
+# rbenv
+if [ -d $HOME/.rbenv ]; then
+  export RBENV_ROOT="$HOME/.rbenv"
+  export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
+  eval "$(rbenv init - zsh)"
+fi
+
+# volta
+if [ -d $HOME/.volta ]; then
+  export VOLTA_HOME="$HOME/.volta"
+  export PATH="$VOLTA_HOME/bin:$PATH"
+fi
+
 umask 022
 
