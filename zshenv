@@ -12,6 +12,8 @@ export EDITOR="vim"
 export PAGER="less"
 export LESS="-iR"
 
+export TERM="xterm-256color"
+
 # Language settings
 # goenv
 if [ -d "$HOME/.goenv" ]; then
