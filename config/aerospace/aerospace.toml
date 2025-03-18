@@ -215,9 +215,17 @@ if.app-id = 'com.electron.realtimeboard'
 run = "move-node-to-workspace M"
 
 [[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = "move-node-to-workspace S"
+
+[[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = "move-node-to-workspace T"
 
 [[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-run = "move-node-to-workspace S"
+if.app-id = 'com.kdrag0n.MacVirt'
+run = "move-node-to-workspace V"
+
+[[on-window-detected]]
+if.app-id = 'com.vmware.fusion'
+run = "move-node-to-workspace V"
