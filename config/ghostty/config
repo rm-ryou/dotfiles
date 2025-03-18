@@ -1,23 +1,23 @@
-theme = "Dark Pastel"
-
-# font-family = Berkeley Mono
+# Font settings
 font-family = "Hack Nerd Font Mono"
-font-style = Regular
-font-size = 13
+font-size = 12
 font-thicken = true
+font-thicken-strength = 255
 
-# font-family = JetBrains Mono
-# font-synthetic-style = bold
+# Color settings
+theme = "Builtin Pastel Dark"
+background = "#000000"
+foreground = "#FFFFFF"
 
-background-opacity = 0.8
-background-blur = 5
+# Cursor settings
+cursor-style = "block"
+cursor-style-blink = false
+mouse-hide-while-typing = true
 
-# Start new windows in fullscreen
-fullscreen = true
-quick-terminal-position = top
+# Transparency settings
+background-opacity = 0.7
 
-
-###----- Key Bindings -----#### {{{
-
-# }}}
+# Window settings
+# window-decoration = none
+macos-titlebar-style = "hidden"
 
