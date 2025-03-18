@@ -3,14 +3,14 @@ theme = "Dark Pastel"
 # font-family = Berkeley Mono
 font-family = "Hack Nerd Font Mono"
 font-style = Regular
-# font-size = 13
+font-size = 13
 font-thicken = true
 
 # font-family = JetBrains Mono
 # font-synthetic-style = bold
 
 background-opacity = 0.8
-background-blur = true
+background-blur = 5
 
 # Start new windows in fullscreen
 fullscreen = true
