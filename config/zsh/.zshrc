@@ -151,8 +151,36 @@ if $(command -v eza &>/dev/null); then
   alias ls="eza --color=always --icons=always"
   export EZA_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/eza"
 fi
+
 # }}}
 ###----- Functions -----#### {{{
+# }}}
+###----- Tools Setting -----#### {{{
+### FZF {{{
+# Set up fzf key bindings and fuzzy completion
+# https://github.com/junegunn/fzf
+source <(fzf --zsh)
+
+export FZF_DEFAULT_OPTS="
+  --border=none
+  --highlight-line
+  --info=inline-right
+  --layout=reverse
+  --color=fg:#c0caf5,bg:#16161e,hl:#2ac3de
+  --color=fg+:#c0caf5,bg+:#283457,hl+:#2ac3de
+  --color=gutter:#16161e,info:#545c7e
+  --color=border:#27a1b9,prompt:#2ac3de
+  --color=pointer:#ff007c,marker:#ff007c
+  --color=spinner:#ff007c,header:#ff9e64
+  --color=scrollbar:#27a1b9,separator:#ff9e64
+  --color=query:#c0caf5:regular"
+export FZF_CTRL_R_OPTS="--no-sort --exact"
+export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target"
+
+# FZF alias
+alias fzp="fzf --ansi --preview 'bat --color=always {}'"
+
+# FZF functions
 # fbr - checkout git branch
 fbr() {
   local branches branch
@@ -196,31 +224,5 @@ fshow() {
                 {}
 FZF-EOF"
 }
-# }}}
-###----- Tools Setting -----#### {{{
-### FZF {{{
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-
-show_preview="if [ -d {} ]; then eza --tree --color=always {}; else bat --color=always {}; fi"
-# NOTE It is not recommended to put ANSI and PREVIEW in FZF_DEFAULT_OPTS.
-# https://github.com/junegunn/fzf
-export FZF_DEFAULT_OPTS="
-  --ansi
-  --border=none
-  --highlight-line
-  --info=inline-right
-  --layout=reverse
-  --preview '$show_preview'
-  --color=fg:#c0caf5,bg:#16161e,hl:#2ac3de
-  --color=fg+:#c0caf5,bg+:#283457,hl+:#2ac3de
-  --color=gutter:#16161e,info:#545c7e
-  --color=border:#27a1b9,prompt:#2ac3de
-  --color=pointer:#ff007c,marker:#ff007c
-  --color=spinner:#ff007c,header:#ff9e64
-  --color=scrollbar:#27a1b9,separator:#ff9e64
-  --color=query:#c0caf5:regular"
-export FZF_CTRL_R_OPTS="--no-sort --exact"
-export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target"
 # }}}
 # }}}
