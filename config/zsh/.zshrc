@@ -3,6 +3,8 @@
 bindkey -v
 export KEYTIMEOUT=1
 
+cdpath=("$HOME/dev/github")
+
 # time command's format configuration
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
 
