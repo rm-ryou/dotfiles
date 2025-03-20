@@ -211,6 +211,10 @@ up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
 
 [[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = "move-node-to-workspace D"
+
+[[on-window-detected]]
 if.app-id = 'com.electron.realtimeboard'
 run = "move-node-to-workspace M"
 
