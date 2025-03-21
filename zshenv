@@ -37,6 +37,9 @@ if [ -d "$HOME/.rbenv" ]; then
   export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
   eval "$(rbenv init - zsh)"
 fi
+if [ -e "/opt/homebrew/opt/openssl@3" ]; then
+  alias rbenv="RUBY_CONFIGURE_OPTS=--with-openssl-dir=/opt/homebrew/opt/openssl@3 rbenv"
+fi
 
 # volta
 if [ -d "$HOME/.volta" ]; then
