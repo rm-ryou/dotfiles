@@ -1,7 +1,7 @@
 ###----- Basic Setting #### {{{
 # Set vi mode
 bindkey -v
-export KEYTIMEOUT=1
+export KEYTIMEOUT=20
 
 cdpath=("$HOME/dev/github")
 
@@ -116,6 +116,9 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+# Go to cmd-mode with jj
+bindkey -M viins 'jj' vi-cmd-mode
+
 # Change cursor shape by vi mode
 function zle-keymap-select () {
   case $KEYMAP in
@@ -143,6 +146,9 @@ bindkey '^e' edit-command-line
 ###----- Aliases -----#### {{{
 # force zsh to show the complete history
 alias history="history 0"
+
+# Reload zsh settings
+alias reload="source ${ZDOTDIR}/.zshrc && source ${HOME}/.zshenv && echo 'zsh configuration reloaded!!'"
 
 if $(command -v bat &>/dev/null); then
   alias cat="bat --color=always"
