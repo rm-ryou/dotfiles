@@ -18,9 +18,10 @@ export TERM="xterm-256color"
 # goenv
 if [ -d "$HOME/.goenv" ]; then
   export GOENV_ROOT="$HOME/.goenv"
-  export PATH="$GOENV_ROOT/bin:$PATH"
   export GOENV_GOPATH_PREFIX="$HOME/.go"
   export GOPATH="${HOME}/.go"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  export PATH="$PATH:$GOPATH/bin"
   eval "$(goenv init - )"
 fi
 
