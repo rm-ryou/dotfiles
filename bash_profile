@@ -13,6 +13,11 @@ export LESS="-iR"
 
 export TERM="xterm-256color"
 
+# Set path so it includes user's private bin
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Language settings
 # goenv
 if [ -d "$HOME/.goenv" ]; then
@@ -49,11 +54,21 @@ fi
 
 # Other tool settings
 # fzf
-if [ -d "$HOME/.fzf" ]; then
-  export PATH="$HOME/.fzf/bin:$PATH"
-fi
+[ -f "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
 
 umask 022
+
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;33m") \
+    LESS_TERMCAP_md=$(printf "\e[1;33m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
 
 # Invoked as an interactive non-login shell
 if [ -f "$HOME/.bashrc" ]; then . "$HOME/.bashrc"; fi
