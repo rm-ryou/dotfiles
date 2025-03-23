@@ -34,11 +34,11 @@ prompt_git() {
 
   [ -n "${s}" ] && s=" [${s}]"
 
-  echo -e "${1}${branchName}${2}${s}"
+  echo -e "${1}${branchName}${reset}${blue}${s}"
 }
 
 if tput setaf 1 &> /dev/null; then
-  tput sgr0;    # reset colors
+  tput sgr0;  # reset colors
   bold=$(tput bold);
   reset=$(tput sgr0);
   black=$(tput setaf 0);
@@ -49,10 +49,10 @@ if tput setaf 1 &> /dev/null; then
   white=$(tput setaf 7)
 fi;
 
-PS1="\\[${bold}\\]\\n";                           # Add empty line
-PS1+="\\[${bold}${blue}\\]\\u";                   # User name
-PS1+="\\[${white}\\] at \\[${bold}${cyan}\\]\\h"; # Host
-PS1+="\\[${white}\\] in \\[${green}\\]\\w";       # Working directory
-PS1+="\$(prompt_git \"${white} on ${magenta}\")"; # Git repository details
+PS1="\\n";                                                        # Add empty line
+PS1+="\\[${bold}${blue}\\]\\u";                                   # User name
+PS1+="\\[${reset}${white}\\] at \\[${bold}${cyan}\\]\\h";         # Host
+PS1+="\\[${reset}${white}\\] in \\[${bold}${green}\\]\\w";        # Working directory
+PS1+="\$(prompt_git \"${reset}${white} on ${bold}${magenta}\")";  # Git repository details
 PS1+="\\n\\[${white}\\]\$ \\[${reset}\\]";
 # }}}
