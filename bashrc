@@ -1,3 +1,22 @@
+###----- Basic Setting #### {{{
+# Set vi mode
+set -o vi
+
+# time command's format configuration
+TIMEFORMAT=$'\nreal\t%R\nuser\t%U\nsys\t%S\ncpu\t%P'
+
+# History configurations
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/history"
+HISTSIZE=1000
+HISTFILESIZE=2000
+shopt -s histverify
+
+# Other options
+# https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
+# https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin
+shopt autocd
+
+# }}}
 ###----- Prompt -----#### {{{
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
   export TERM='gnome-256color';
@@ -55,4 +74,16 @@ PS1+="\\[${reset}${white}\\] at \\[${bold}${cyan}\\]\\h";         # Host
 PS1+="\\[${reset}${white}\\] in \\[${bold}${green}\\]\\w";        # Working directory
 PS1+="\$(prompt_git \"${reset}${white} on ${bold}${magenta}\")";  # Git repository details
 PS1+="\\n\\[${white}\\]\$ \\[${reset}\\]";
+# }}}
+###----- Aliases -----#### {{{
+
+if $(command -v bat &>/dev/null); then
+  alias cat="bat --color=always"
+  export BAT_THEME="tokyonight_night"
+fi
+
+if $(command -v eza &>/dev/null); then
+  alias ls="eza --color=always --icons=always"
+  export EZA_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/eza"
+fi
 # }}}
