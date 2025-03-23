@@ -73,7 +73,7 @@ prompt_git() {
 
   [ -n "${s}" ] && s=" [${s}]"
 
-  echo -E "${1}${branchName}${2}${s}"
+  echo -E "${1}%B${branchName}%b${2}${s}"
 }
 
 # Set the terminal title and prompt.
