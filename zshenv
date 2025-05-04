@@ -20,8 +20,9 @@ if [ -d "$HOME/.goenv" ]; then
   export GOENV_ROOT="$HOME/.goenv"
   export GOENV_GOPATH_PREFIX="$HOME/.go"
   export GOPATH="${HOME}/.go"
+  export GOBIN="${HOME}/.go/bin"
   export PATH="$GOENV_ROOT/bin:$PATH"
-  export PATH="$PATH:$GOPATH/bin"
+  export PATH="$GOPATH/bin:$PATH"
   eval "$(goenv init - )"
 fi
 
@@ -48,6 +49,12 @@ if [ -d "$HOME/.volta" ]; then
   export PATH="$VOLTA_HOME/bin:$PATH"
 fi
 
+# rustup
+if [ -d "$HOME/.cargo" ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+  . "$HOME/.cargo/env"
+fi
+
 # Other tool settings
 # fzf
 if [ -d "$HOME/.fzf" ]; then
@@ -55,4 +62,3 @@ if [ -d "$HOME/.fzf" ]; then
 fi
 
 umask 022
-
