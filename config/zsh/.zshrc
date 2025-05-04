@@ -186,7 +186,7 @@ export FZF_CTRL_R_OPTS="--no-sort --exact"
 export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target"
 
 # FZF alias
-alias fzp="fzf --ansi --preview 'bat --color=always {}'"
+alias fzp="fzf --ansi --preview 'bat --color=always {}' --bind=ctrl-f:preview-down,ctrl-d:preview-up"
 
 # FZF functions
 # fbr - checkout git branch
