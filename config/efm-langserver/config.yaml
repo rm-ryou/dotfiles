@@ -1,0 +1,25 @@
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 1s
+log-file: /tmp/efm-langserver.log
+log-level: 1
+
+tools:
+  javascript-eslint: &javascript-eslint
+    lint-command: './node_modules/.bin/eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - "%f(%l,%c): %tarning %m"
+      - "%f(%l,%c): %rror %m"
+
+  prettier: &prettier
+    format-command: 'npx --no-install prettier --stdin-filepath ${INPUT}'
+    format-stdin: true
+
+languages:
+  typescript:
+    - <<: *javascript-eslint
+    - <<: *prettier
+
