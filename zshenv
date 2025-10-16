@@ -1,4 +1,4 @@
-export ZDOTDIR="$HOME/.config/zsh"
+export ZDOTDIR="${HOME}/.config/zsh"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -14,45 +14,10 @@ export LESS="-iR"
 
 export TERM="xterm-256color"
 
-# Language settings
-# goenv
-if [ -d "$HOME/.goenv" ]; then
-  export GOENV_ROOT="$HOME/.goenv"
-  export GOENV_GOPATH_PREFIX="$HOME/.go"
-  export GOPATH="${HOME}/.go"
+# mise
+if command -v mise &> /dev/null; then
   export GOBIN="${HOME}/.go/bin"
-  export PATH="$GOENV_ROOT/bin:$PATH"
-  export PATH="$GOPATH/bin:$PATH"
-  eval "$(goenv init - )"
-fi
-
-# pyenv
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init - zsh)"
-fi
-
-# rbenv
-if [ -d "$HOME/.rbenv" ]; then
-  export RBENV_ROOT="$HOME/.rbenv"
-  export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
-  eval "$(rbenv init - zsh)"
-fi
-if [ -e "/opt/homebrew/opt/openssl@3" ]; then
-  alias rbenv="RUBY_CONFIGURE_OPTS=--with-openssl-dir=/opt/homebrew/opt/openssl@3 rbenv"
-fi
-
-# volta
-if [ -d "$HOME/.volta" ]; then
-  export VOLTA_HOME="$HOME/.volta"
-  export PATH="$VOLTA_HOME/bin:$PATH"
-fi
-
-# rustup
-if [ -d "$HOME/.cargo" ]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-  . "$HOME/.cargo/env"
+  eval "$(mise activate zsh)"
 fi
 
 # Other tool settings
