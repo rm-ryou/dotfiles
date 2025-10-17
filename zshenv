@@ -16,6 +16,7 @@ export TERM="xterm-256color"
 
 # mise
 if command -v mise &> /dev/null; then
+  export GOPATH="${HOME}/.go"
   export GOBIN="${HOME}/.go/bin"
   eval "$(mise activate zsh)"
 fi
