@@ -6,4 +6,4 @@ ruby = "3.4.7"
 [settings]
 
 # go
-go_set_gobin = true
+go_set_gobin = false
