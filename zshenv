@@ -14,10 +14,15 @@ export LESS="-iR"
 
 export TERM="xterm-256color"
 
+# brew
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # mise
 if command -v mise &> /dev/null; then
-  export GOBIN="${HOME}/.go/bin"
   eval "$(mise activate zsh)"
+  export GOBIN="${HOME}/.go/bin"
 fi
 
 # Other tool settings
