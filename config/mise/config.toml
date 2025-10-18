@@ -9,4 +9,4 @@ terraform = "latest"
 [settings]
 
 # go
-go_set_gobin = true
+go_set_gobin = false
