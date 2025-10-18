@@ -1,7 +1,10 @@
 [tools]
+aws = "2.31.17"
+gh = "2.82.0"
 go = "1.25.3"
 node = "25.0.0"
 ruby = "3.4.7"
+terraform = "latest"
 
 [settings]
 
